@@ -1,0 +1,3157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>Talent Forge | Alpha Auron Private Limited</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --red: #ef2929;
+      --red-dark: #a90000;
+      --bg: #090909;
+      --panel: #141414;
+      --muted: #a3a3a3;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    .container-main {
+      width: min(1160px, 92%);
+      margin: auto;
+    }
+
+    .section {
+      padding: 58px 0;
+      scroll-margin-top: 90px;
+    }
+
+    .section-title {
+      font-size: clamp(23px, 3vw, 34px);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin: 0 0 9px;
+    }
+
+    .section-subtitle {
+      color: #a3a3a3;
+      font-size: 13px;
+      line-height: 1.65;
+      max-width: 680px;
+      margin: 0 auto 25px;
+    }
+
+    .red-text {
+      color: var(--red);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #ff4545);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .red-button {
+      background: linear-gradient(135deg, #fa3030, #b80000);
+      color: white;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 9px;
+      padding: 11px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .25s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .red-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(239,41,41,.25);
+    }
+
+    .outline-button {
+      border: 1px solid #555;
+      color: #eee;
+      border-radius: 9px;
+      padding: 10px 16px;
+      font-size: 12px;
+      transition: .25s;
+    }
+
+    .outline-button:hover {
+      border-color: var(--red);
+      color: white;
+    }
+
+    /* Header */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,8,8,.94);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+      white-space: nowrap;
+    }
+
+    .brand span { color: var(--red); }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-link {
+      border: 0;
+      background: transparent;
+      color: #bbb;
+      padding: 9px 11px;
+      border-radius: 7px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: rgba(239,41,41,.13);
+      color: white;
+    }
+
+    .nav-dropdown { position: relative; }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 205px;
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 7px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.45);
+    }
+
+    .dropdown-menu.open { display: block; animation: dropdownIn .2s ease; }
+
+    .dropdown-menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+      color: #bbb;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .dropdown-menu button:hover {
+      background: rgba(239,41,41,.15);
+      color: white;
+    }
+
+    .mobile-menu-button {
+      display: none;
+      border: 1px solid #333;
+      background: #171717;
+      color: white;
+      border-radius: 8px;
+      padding: 8px 11px;
+    }
+
+    .mobile-nav {
+      display: none;
+      padding: 10px 0 16px;
+      border-top: 1px solid #292929;
+    }
+
+    .mobile-nav.open { display: block; }
+
+    .mobile-nav button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      color: #ccc;
+      padding: 10px;
+      background: transparent;
+      border: 0;
+      font-size: 12px;
+    }
+
+    /* Page transitions */
+
+    .view-container { display: none; }
+    .view-container.active { display: block; }
+
+    .page-enter {
+      animation: pageEnter .65s ease both;
+    }
+
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes dropdownIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 0 rgba(239,41,41,0); }
+      50% { box-shadow: 0 0 30px rgba(239,41,41,.13); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      min-height: 435px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.97), rgba(5,5,5,.77), rgba(5,5,5,.45)),
+        url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85") center/cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      right: -100px;
+      top: 30px;
+      background: rgba(210,0,0,.15);
+      filter: blur(75px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: none; /* text now starts at the left edge, in line with the logo */
+      padding: 65px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #ff7777;
+      background: rgba(239,41,41,.12);
+      border: 1px solid rgba(239,41,41,.3);
+      border-radius: 30px;
+      padding: 7px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      font-weight: 900;
+      margin: 0 0 15px;
+    }
+
+    .hero p {
+      color: #c4c4c4;
+      max-width: 560px;
+      line-height: 1.75;
+      font-size: 13px;
+      margin-bottom: 23px;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* General cards */
+
+    .dark-card {
+      background: linear-gradient(145deg, #191919, #101010);
+      border: 1px solid #292929;
+      border-radius: 13px;
+      transition: .3s;
+    }
+
+    .dark-card:hover {
+      border-color: rgba(239,41,41,.55);
+      transform: translateY(-4px);
+    }
+
+    /* Professional categories */
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .category-card {
+      min-height: 190px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      padding: 18px;
+      border: 1px solid #343434;
+      background: linear-gradient(145deg, #191919, #101010);
+      transition: .3s;
+      isolation: isolate;
+    }
+
+    .category-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: transparent;
+      transition: .3s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+    }
+
+    .category-card:hover::before {
+      background: rgba(100,0,0,.08);
+    }
+
+    .category-card > div { width: 100%; }
+
+    .category-card h3 {
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 750;
+      margin: 0;
+      color: #f5f5f5;
+    }
+
+    .category-heading { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+    .category-number { flex:0 0 27px; width:27px; height:27px; display:grid; place-items:center; border-radius:7px; background:#b90000; color:#fff; font-size:11px; font-weight:850; }
+
+    .category-card i {
+      color: #ff6262;
+      font-size: 23px;
+      margin-bottom: 11px;
+      display: block;
+    }
+    .category-card p { color:#aaa; font-size:11px; line-height:1.6; margin:0; }
+
+    /* How it works */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: minmax(220px, 34%) minmax(0, 1fr);
+      align-items: stretch;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #151515;
+      border: 1px solid #2b2b2b;
+      transition: .3s;
+    }
+
+    .step-card:hover { border-color: var(--red); transform: translateY(-4px); }
+
+    .step-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      filter: brightness(.78);
+    }
+
+    .step-content { padding: 22px 26px; align-self:center; }
+
+    .step-number {
+      width: 25px;
+      height: 25px;
+      border-radius: 7px;
+      background: #b90000;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .step-content h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+
+    .step-content p {
+      color: #bdbdbd;
+      font-size: 13px;
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    /* Membership plans */
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 11px;
+      align-items: stretch;
+    }
+
+    .plan-card {
+      position: relative;
+      background: linear-gradient(160deg, #1b1b1b, #101010);
+      border: 1px solid #353535;
+      border-radius: 12px;
+      padding: 17px 13px;
+      display: flex;
+      flex-direction: column;
+      transition: .3s;
+      min-width: 0;
+    }
+
+    .plan-card:hover {
+      border-color: var(--red);
+      transform: translateY(-5px);
+      animation: pulseGlow 2s infinite;
+    }
+
+    .plan-card.featured {
+      border-color: #e52a2a;
+      background: linear-gradient(160deg, #2a1111, #111);
+    }
+
+    .plan-label {
+      color: #ff7777;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+
+    .plan-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0 0 7px;
+    }
+
+    .plan-price {
+      font-size: clamp(19px, 2vw, 25px);
+      font-weight: 900;
+      margin: 7px 0 4px;
+      letter-spacing: -.8px;
+    }
+
+    .plan-duration {
+      color: #aaa;
+      font-size: 9px;
+      line-height: 1.5;
+      margin-bottom: 13px;
+    }
+
+    .plan-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      flex: 1;
+    }
+
+    .plan-card li {
+      font-size: 10px;
+      color: #c4c4c4;
+      line-height: 1.55;
+      padding: 6px 0;
+      border-bottom: 1px solid #292929;
+    }
+
+    .plan-card li i {
+      color: #ef4444;
+      margin-right: 5px;
+      font-size: 9px;
+    }
+
+    .plan-value {
+      border-radius: 7px;
+      background: rgba(255,255,255,.045);
+      padding: 9px;
+      margin: 0 0 13px;
+    }
+
+    .plan-value small {
+      display: block;
+      color: #999;
+      font-size: 9px;
+      margin-bottom: 4px;
+    }
+
+    .plan-value strong {
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .plan-card .red-button {
+      width: 100%;
+      font-size: 10px;
+      padding: 10px 5px;
+    }
+
+    .plan-tools {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin: 0 auto 20px;
+    }
+
+    .duration-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #393939;
+      background: #151515;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: #ddd;
+    }
+
+    .duration-box i { color: var(--red); }
+
+    .brochure-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #211010;
+      border: 1px solid #733030;
+      border-radius: 8px;
+      padding: 8px 11px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .brochure-box:hover { background: #401313; }
+
+    /* Benefits */
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+
+    .benefit-card { padding: 18px; }
+
+    .benefit-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: rgba(239,41,41,.14);
+      color: #ff5555;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .benefit-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0 0 7px;
+    }
+
+    .benefit-card p {
+      font-size: 11px;
+      line-height: 1.7;
+      color: #aaa;
+      margin: 0;
+    }
+
+    /* FAQ */
+
+    .faq-list { max-width: 850px; margin: auto; }
+
+    .faq-item {
+      border: 1px solid #303030;
+      background: #141414;
+      border-radius: 9px;
+      margin-bottom: 9px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      text-align: left;
+      padding: 14px 16px;
+      background: transparent;
+      border: 0;
+      color: #eee;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .faq-question i { color: #ff5555; transition: .25s; }
+
+    .faq-answer {
+      display: none;
+      color: #aaa;
+      font-size: 11px;
+      line-height: 1.75;
+      padding: 0 16px 15px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+
+    /* Sales pages */
+
+    .sales-hero {
+      padding: 65px 0;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.97), rgba(10,10,10,.78)),
+        url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=85") center/cover;
+    }
+
+    .sales-hero h1 {
+      font-size: clamp(30px, 4vw, 45px);
+      font-weight: 900;
+      line-height: 1.12;
+      margin: 0 0 13px;
+    }
+
+    .sales-hero p {
+      max-width: 650px;
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 13px;
+    }
+
+    .sales-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .sales-feature {
+      min-height: 175px;
+      padding: 20px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #353535;
+      isolation: isolate;
+    }
+
+    .sales-feature::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(0,0,0,.96), rgba(0,0,0,.58));
+    }
+
+    .sales-feature i {
+      color: #ff5555;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .sales-feature h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+
+    .sales-feature p {
+      font-size: 11px;
+      line-height: 1.7;
+      color: #bbb;
+      margin: 0;
+    }
+
+    .process-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .process-card {
+      padding: 17px;
+      border-left: 2px solid var(--red);
+    }
+
+    .process-card span {
+      color: #ff6262;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .process-card h3 {
+      font-size: 12px;
+      margin: 8px 0 6px;
+      font-weight: 700;
+    }
+
+    .process-card p {
+      color: #aaa;
+      font-size: 10px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Membership details page */
+
+    .membership-details-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .membership-details-grid > .detail-card { grid-column: span 2; }
+    .membership-details-grid > .detail-card:nth-child(4) { grid-column: 2 / span 2; }
+    .membership-details-grid > .detail-card:nth-child(5) { grid-column: 4 / span 2; }
+
+    .detail-card {
+      grid-column: span 2;
+      height: 100%;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 100%;
+      border-radius: 12px;
+      border: 1px solid #353535;
+      background: linear-gradient(155deg, #1d1d1d, #101010);
+    }
+
+    .detail-card h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin: 0 0 7px;
+    }
+
+    .detail-card .detail-price {
+      color: #ff5555;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .detail-card p {
+      font-size: 10px;
+      line-height: 1.65;
+      color: #aaa;
+      margin: 0 0 10px;
+    }
+
+    .detail-card ul {
+      padding-left: 15px;
+      flex: 1;
+      margin: 0 0 16px;
+      color: #c5c5c5;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid #333;
+      border-radius: 12px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      min-width: 750px;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 13px;
+      text-align: left;
+      border-bottom: 1px solid #303030;
+    }
+
+    .comparison-table th {
+      color: white;
+      background: #251010;
+    }
+
+    .comparison-table td { color: #bbb; }
+
+    /* Contact and form */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .contact-card { padding: 23px; }
+    .contact-actions { display:flex; gap:10px; }
+    .contact-icon-link { width:42px; height:42px; display:grid; place-items:center; border:1px solid #4a3030; border-radius:10px; background:#211010; color:#ff6262; font-size:17px; transition:.2s; }
+    .contact-icon-link:hover { color:#fff; background:#8f1111; border-color:#ef2929; transform:translateY(-2px); }
+
+    .contact-card h3 {
+      font-size: 19px;
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 13px 0;
+      border-bottom: 1px solid #303030;
+      color: #bbb;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .contact-line i {
+      color: #ff5555;
+      width: 17px;
+      margin-top: 2px;
+    }
+
+    .form-card { padding: 22px; }
+
+    .form-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 5px;
+    }
+
+    .form-card > p {
+      color: #999;
+      font-size: 11px;
+      margin: 0 0 17px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .form-field.full { grid-column: 1 / -1; }
+
+    .form-field label {
+      display: block;
+      color: #ccc;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .form-field input, .form-field select, .form-field textarea {
+      width: 100%;
+      color: white;
+      background: #0c0c0c;
+      border: 1px solid #363636;
+      border-radius: 7px;
+      outline: none;
+      padding: 10px 11px;
+      font-size: 11px;
+    }
+
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+      border-color: var(--red);
+    }
+
+    .form-field select option { background: #111; }
+    .form-field textarea { min-height: 85px; resize: vertical; }
+
+    .consent {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      color: #aaa;
+      font-size: 10px;
+      line-height: 1.6;
+      margin: 14px 0;
+    }
+
+    .consent input { margin-top: 2px; accent-color: var(--red); }
+
+    .form-status {
+      display: none;
+      border-radius: 8px;
+      padding: 11px;
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    .form-status.success {
+      display: block;
+      color: #9af0b0;
+      background: #102418;
+      border: 1px solid #235c35;
+    }
+
+    .form-status.error {
+      display: block;
+      color: #ffaaaa;
+      background: #2b1010;
+      border: 1px solid #733030;
+    }
+
+    .honeypot {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      height: 0;
+      width: 0;
+    }
+
+    /* Footer */
+
+    footer {
+      background: #050505;
+      border-top: 1px solid #292929;
+      padding: 30px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-inner p {
+      color: #777;
+      font-size: 10px;
+      line-height: 1.7;
+      margin: 5px 0 0;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .footer-links button {
+      color: #aaa;
+      background: transparent;
+      border: 0;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .footer-links button:hover { color: white; }
+
+    /* Footer contact details */
+    .footer-contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid #222;
+    }
+    .footer-contact-item h4 {
+      margin: 0 0 6px;
+      color: #ef2929;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .footer-contact-item p, .footer-contact-item a {
+      display: block;
+      color: #aaa;
+      font-size: 11px;
+      line-height: 1.8;
+      margin: 0;
+      text-decoration: none;
+      word-break: break-word;
+    }
+    .footer-contact-item a:hover { color: #fff; }
+    .footer-contact-item strong { color: #ddd; font-weight: 700; }
+
+    .disclaimer {
+      color: #777;
+      font-size: 9px;
+      line-height: 1.7;
+      border-top: 1px solid #222;
+      margin-top: 20px;
+      padding-top: 15px;
+    }
+
+    @media (max-width: 1050px) {
+      .plans-grid { grid-template-columns: repeat(3, 1fr); }
+      .membership-details-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      .membership-details-grid > .detail-card { grid-column: span 2; }
+      .membership-details-grid > .detail-card:nth-child(4) { grid-column: 2 / span 2; }
+      .membership-details-grid > .detail-card:nth-child(5) { grid-column: 4 / span 2; }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .desktop-nav { display: none; }
+      .mobile-menu-button { display: block; }
+      .header-inner { min-height: 62px; }
+      .section { padding: 42px 0; }
+      .hero { min-height: 390px; }
+      .hero-content { padding: 50px 0; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .plans-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .sales-feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-list { grid-template-columns: repeat(2, 1fr); }
+      .membership-details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .membership-details-grid > .detail-card,
+      .membership-details-grid > .detail-card:nth-child(4),
+      .membership-details-grid > .detail-card:nth-child(5) { grid-column: auto; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .plans-grid { grid-template-columns: 1fr 1fr; }
+      .plan-card { padding: 13px 10px; }
+      .plan-card h3 { font-size: 14px; }
+      .plan-price { font-size: 20px; }
+      .benefits-grid, .sales-feature-grid { grid-template-columns: 1fr; }
+      .membership-details-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field.full { grid-column: auto; }
+      .hero h1 { letter-spacing: -1px; }
+      .category-card { min-height: 135px; }
+      .step-card { grid-template-columns: 36% minmax(0,1fr); }
+      .step-card img { min-height: 190px; }
+      .step-content { padding: 16px; }
+      .step-content h3 { font-size: 15px; }
+      .step-content p { font-size: 12px; }
+      .process-list { grid-template-columns: 1fr; }
+      .membership-details-grid { grid-template-columns: 1fr; }
+      .membership-details-grid > .detail-card,
+      .membership-details-grid > .detail-card:nth-child(4),
+      .membership-details-grid > .detail-card:nth-child(5) { grid-column: auto; }
+    }
+
+    /* ===== Submit Enquiry success animation ===== */
+    .tfs-overlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
+    .tfs-overlay.open{display:flex;animation:tfsFade .25s ease both}
+    .tfs-card{width:100%;max-width:420px;text-align:center;background:#141414;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:38px 26px 28px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:tfsPop .45s cubic-bezier(.2,.9,.3,1.2) both}
+    .tfs-badge{position:relative;width:110px;height:110px;margin:0 auto 22px}
+    .tfs-badge .ring{position:absolute;inset:0;border-radius:50%;border:2px solid #22c55e;opacity:0}
+    .tfs-overlay.open .ring{animation:tfsRipple 1.6s ease-out .55s 2}
+    .tfs-overlay.open .ring.r2{animation-delay:.85s}
+    .tfs-badge svg{position:relative;width:110px;height:110px;display:block}
+    .tfs-disc{fill:#22c55e;transform-origin:50% 50%;transform:scale(0);animation:tfsDisc .5s cubic-bezier(.2,.9,.3,1.3) .1s forwards}
+    .tfs-tick{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:tfsTick .45s ease-out .55s forwards}
+    .tfs-dot{position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px;border-radius:50%;opacity:0}
+    .tfs-overlay.open .tfs-dot{animation:tfsBurst .9s ease-out .6s forwards}
+    .tfs-card h3{margin:0 0 10px;font-size:22px;font-weight:800;color:#fff;opacity:0;animation:tfsUp .4s ease .8s forwards}
+    .tfs-card p{margin:0 0 22px;color:#d4d4d4;line-height:1.6;font-size:14.5px;opacity:0;animation:tfsUp .4s ease .95s forwards}
+    .tfs-ref{display:table;margin:-8px auto 18px;padding:6px 12px;border-radius:999px;background:rgba(34,197,94,.12);color:#86efac;font-size:12px;font-weight:700;opacity:0;animation:tfsUp .4s ease 1.05s forwards}
+    .tfs-card .red-button{display:block;width:100%;opacity:0;animation:tfsUp .4s ease 1.1s forwards}
+    @keyframes tfsFade{from{opacity:0}to{opacity:1}}
+    @keyframes tfsPop{from{transform:scale(.85) translateY(10px);opacity:0}to{transform:none;opacity:1}}
+    @keyframes tfsDisc{to{transform:scale(1)}}
+    @keyframes tfsTick{to{stroke-dashoffset:0}}
+    @keyframes tfsRipple{0%{transform:scale(1);opacity:.65}100%{transform:scale(1.9);opacity:0}}
+    @keyframes tfsBurst{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}}
+    @keyframes tfsUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion:reduce){.tfs-overlay *,.tfs-overlay{animation-duration:.01s!important;animation-delay:0s!important}}
+
+    /* ===== Yasaswini / Admin portal ===== */
+    body.tfp-lock{overflow:hidden}
+    .tfp-overlay{position:fixed;inset:0;z-index:9000;display:none;overflow-y:auto;background:var(--bg);color:#fff}
+    .tfp-overlay.open{display:block}
+    .tfp-login-wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+    .tfp-card{width:100%;max-width:410px;background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:30px 26px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+    .tfp-brand{font-weight:900;letter-spacing:.04em;font-size:18px}.tfp-brand span{color:var(--red)}
+    .tfp-card h2{margin:18px 0 4px;font-size:22px;font-weight:800}
+    .tfp-card p.sub{margin:0 0 20px;color:var(--muted);font-size:13px}
+    .tfp-field{margin-bottom:14px}.tfp-field label{display:block;margin-bottom:6px;font-size:12px;font-weight:600;color:#d4d4d4}
+    .tfp-field input,.tfp-field select,.tfp-toolbar input,.tfp-toolbar select{width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:#0d0d0d;color:#fff;outline:none}
+    .tfp-field input:focus,.tfp-toolbar input:focus,.tfp-toolbar select:focus{border-color:var(--red)}
+    .tfp-error{display:none;margin:0 0 14px;padding:10px 12px;border-radius:10px;background:rgba(239,41,41,.12);border:1px solid rgba(239,41,41,.35);color:#fca5a5;font-size:13px}
+    .tfp-link{display:block;margin:16px auto 0;background:none;border:0;color:var(--muted);cursor:pointer;font-size:13px}.tfp-link:hover{color:#fff}
+    .tfp-dash{max-width:1240px;margin:0 auto;padding:22px 18px 60px}
+    .tfp-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+    .tfp-top h1{margin:0;font-size:22px;font-weight:800}.tfp-top small{display:block;color:var(--muted);font-weight:500;margin-top:3px}
+    .tfp-actions{display:flex;flex-wrap:wrap;gap:8px}
+    .tfp-btn{padding:9px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:#1b1b1b;color:#fff;cursor:pointer;font-size:13px;font-weight:600}
+    .tfp-btn:hover{border-color:var(--red)}.tfp-btn.primary{background:var(--red);border-color:var(--red)}
+    .tfp-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+    .tfp-stat{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
+    .tfp-stat b{display:block;font-size:26px;font-weight:800}.tfp-stat span{color:var(--muted);font-size:12px}
+    .tfp-tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .tfp-tab{padding:10px 16px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-weight:700}
+    .tfp-tab.active{color:#fff;border-bottom-color:var(--red)}
+    .tfp-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}.tfp-toolbar input{flex:1 1 240px;width:auto}.tfp-toolbar select{width:auto;flex:0 0 auto}
+    .tfp-table-wrap{overflow-x:auto;background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:14px}
+    .tfp-table{width:100%;border-collapse:collapse;min-width:860px}
+    .tfp-table th,.tfp-table td{padding:11px 13px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;vertical-align:top}
+    .tfp-table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+    .tfp-table tbody tr.click{cursor:pointer}.tfp-table tbody tr.click:hover{background:rgba(255,255,255,.04)}
+    .tfp-pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(255,255,255,.1)}
+    .tfp-pill.ok{background:rgba(34,197,94,.15);color:#86efac}.tfp-pill.bad{background:rgba(239,41,41,.15);color:#fca5a5}.tfp-pill.new{background:rgba(250,204,21,.15);color:#fde68a}
+    .tfp-empty{padding:34px;text-align:center;color:var(--muted)}
+    .tfp-break{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:20px}
+    .tfp-break .tfp-stat div{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;color:#d4d4d4}
+    .tfp-detail-bg{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.7)}
+    .tfp-detail-bg.open{display:flex}
+    .tfp-detail{width:100%;max-width:640px;max-height:92vh;overflow-y:auto;background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:24px}
+    .tfp-detail h3{margin:0 0 14px;font-size:18px}
+    .tfp-dl{display:grid;grid-template-columns:170px 1fr;gap:1px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin-bottom:16px}
+    .tfp-dl dt,.tfp-dl dd{margin:0;padding:9px 12px;background:#101010;font-size:13px;word-break:break-word}.tfp-dl dt{color:var(--muted)}
+    .tfp-dl a{color:#fca5a5}
+    @media(max-width:560px){.tfp-dl{grid-template-columns:1fr}.tfp-dl dt{padding-bottom:0}}
+
+    /* ===== Opening intro: TALENT FORGE ===== */
+    .tfi{position:fixed;inset:0;z-index:20000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 55%,#2a0505 0%,#090909 62%);overflow:hidden;cursor:pointer;transition:opacity .7s ease,transform .7s ease,visibility .7s}
+    .tfi.out{opacity:0;transform:scale(1.06);visibility:hidden;pointer-events:none}
+    .tfi-word{display:flex;gap:clamp(10px,3vw,30px);font-weight:900;font-size:clamp(34px,10.5vw,92px);letter-spacing:-.03em;line-height:1}
+    .tfi-word .w{display:flex}
+    .tfi-word .ch{display:inline-block;opacity:0;transform:translateY(60px) scale(.85);filter:blur(10px);animation:tfiRise .75s cubic-bezier(.2,.9,.25,1.1) forwards;animation-delay:calc(.25s + var(--i) * .08s)}
+    .tfi-word .w.f .ch{color:#ef2929;animation-name:tfiRise,tfiGlow;animation-duration:.75s,1.6s;animation-delay:calc(.25s + var(--i) * .08s),1.2s;animation-fill-mode:forwards,none;animation-iteration-count:1,2}
+    .tfi-line{width:min(420px,70vw);height:3px;margin-top:22px;border-radius:3px;background:linear-gradient(90deg,transparent,#ef2929,transparent);transform:scaleX(0);animation:tfiLine .9s ease 1.15s forwards}
+    .tfi-sub{margin-top:16px;color:#a3a3a3;font-size:clamp(10px,2.6vw,13px);letter-spacing:.32em;text-transform:uppercase;opacity:0;animation:tfiFade .8s ease 1.5s forwards}
+    .tfi-skip{position:absolute;bottom:22px;color:#555;font-size:11px;letter-spacing:.1em;opacity:0;animation:tfiFade .6s ease 1.8s forwards}
+    .tfi-spark{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#ff6a3d;box-shadow:0 0 10px 3px rgba(239,41,41,.7);opacity:0;animation:tfiSpark var(--d) ease-out var(--t) infinite}
+    @keyframes tfiRise{to{opacity:1;transform:none;filter:blur(0)}}
+    @keyframes tfiGlow{0%,100%{text-shadow:0 0 0 rgba(239,41,41,0)}50%{text-shadow:0 0 28px rgba(239,41,41,.85)}}
+    @keyframes tfiLine{to{transform:scaleX(1)}}
+    @keyframes tfiFade{to{opacity:1}}
+    @keyframes tfiSpark{0%{opacity:0;transform:translate(0,0) scale(1)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),-75vh) scale(.2)}}
+    @media (prefers-reduced-motion:reduce){.tfi *{animation-duration:.01s!important;animation-delay:0s!important}}
+
+    /* ===== Sales Force explanations ===== */
+    .sf-explain{max-width:780px;margin:-6px auto 26px;padding:14px 18px;border-left:3px solid var(--red);border-radius:10px;background:rgba(255,255,255,.035);color:#bdbdbd;font-size:12px;line-height:1.85;text-align:left}
+    .sf-explain strong{color:#fff}
+    .sales-feature p.sf-more,.process-card p.sf-more{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.14);color:#9ca3af}
+    .sf-more strong{color:#e5e5e5}
+  </style>
+</head>
+
+<body>
+<div class="tfi" id="tfIntro" aria-label="Talent Forge">
+  <i class="tfi-spark" style="left:12%;--x:30px;--d:2.6s;--t:0.2s"></i><i class="tfi-spark" style="left:24%;--x:-40px;--d:3.1s;--t:0.9s"></i><i class="tfi-spark" style="left:38%;--x:25px;--d:2.8s;--t:0.5s"></i><i class="tfi-spark" style="left:50%;--x:-20px;--d:3.3s;--t:1.2s"></i><i class="tfi-spark" style="left:62%;--x:45px;--d:2.7s;--t:0.3s"></i><i class="tfi-spark" style="left:74%;--x:-35px;--d:3.0s;--t:1.0s"></i><i class="tfi-spark" style="left:86%;--x:20px;--d:2.9s;--t:0.6s"></i><i class="tfi-spark" style="left:94%;--x:-25px;--d:3.2s;--t:1.4s"></i>
+  <div class="tfi-word" aria-hidden="true"><span class="w"><span class="ch" style="--i:0">T</span><span class="ch" style="--i:1">A</span><span class="ch" style="--i:2">L</span><span class="ch" style="--i:3">E</span><span class="ch" style="--i:4">N</span><span class="ch" style="--i:5">T</span></span><span class="w f"><span class="ch" style="--i:6">F</span><span class="ch" style="--i:7">O</span><span class="ch" style="--i:8">R</span><span class="ch" style="--i:9">G</span><span class="ch" style="--i:10">E</span></span></div>
+  <div class="tfi-line"></div>
+  <div class="tfi-sub">Alpha Auron Private Limited</div>
+  <div class="tfi-skip">Click to skip</div>
+</div>
+<script>
+  (function () {
+    var el = document.getElementById('tfIntro');
+    var h = window.location.hash.toLowerCase();
+    if (h === '#admin' || h === '#yasaswini') { el.remove(); return; }
+    var done = false;
+    function finish() {
+      if (done) return; done = true;
+      el.classList.add('out');
+      setTimeout(function () { if (el.parentNode) el.remove(); }, 800);
+    }
+    el.addEventListener('click', finish);
+    setTimeout(finish, 3200);
+  })();
+</script>
+
+<header>
+  <div class="container-main header-inner">
+    <button class="brand" onclick="switchView('page1')">
+      TALENT <span>FORGE</span>
+    </button>
+
+    <nav class="desktop-nav">
+      <div class="nav-dropdown">
+        <button class="nav-link" onclick="toggleDropdown('leadDropdown')">
+          Lead Generation <i class="fa-solid fa-chevron-down ml-1"></i>
+        </button>
+        <div class="dropdown-menu" id="leadDropdown">
+          <button onclick="navigateToSection('page1','hero')">Overview</button>
+          <button onclick="navigateToSection('page1','categories')">Professional Categories</button>
+          <button onclick="navigateToSection('page1','how-it-works')">How It Works</button>
+          <button onclick="navigateToSection('page1','plans')">Membership Plans</button>
+          <button onclick="navigateToSection('page1','benefits')">Benefits</button>
+          <button onclick="navigateToSection('page1','faq')">FAQs</button>
+          <button onclick="navigateToSection('page1','enquiry-form')">Submit Enquiry</button>
+        </div>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-link" onclick="toggleDropdown('salesDropdown')">
+          Sales Force <i class="fa-solid fa-chevron-down ml-1"></i>
+        </button>
+        <div class="dropdown-menu" id="salesDropdown">
+          <button onclick="navigateToSection('page3','sales-overview')">Sales Overview</button>
+          <button onclick="navigateToSection('page3','sales-process')">Sales Process</button>
+          <button onclick="navigateToSection('page3','lead-management')">Lead Management</button>
+          <button onclick="navigateToSection('page3','client-relationship')">Client Relationship</button>
+          <button onclick="navigateToSection('page3','sales-team')">Sales Team</button>
+        </div>
+      </div>
+
+      <button class="nav-link" onclick="switchView('page2')">Membership Details</button>
+      <button class="red-button" onclick="navigateToSection('page1','enquiry-form')">
+        Enquire Now <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </nav>
+
+    <button class="mobile-menu-button" onclick="toggleMobileMenu()" aria-label="Open navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="container-main mobile-nav" id="mobileNav">
+    <button onclick="navigateToSection('page1','hero')">Lead Generation – Overview</button>
+    <button onclick="navigateToSection('page1','categories')">Professional Categories</button>
+    <button onclick="navigateToSection('page1','how-it-works')">How It Works</button>
+    <button onclick="navigateToSection('page1','plans')">Membership Plans</button>
+    <button onclick="navigateToSection('page1','benefits')">Benefits</button>
+    <button onclick="navigateToSection('page1','faq')">FAQs</button>
+    <button onclick="navigateToSection('page1','enquiry-form')">Submit Enquiry</button>
+    <button onclick="navigateToSection('page3','sales-overview')">Sales Overview</button>
+    <button onclick="navigateToSection('page3','sales-process')">Sales Process</button>
+    <button onclick="navigateToSection('page3','lead-management')">Lead Management</button>
+    <button onclick="navigateToSection('page3','client-relationship')">Client Relationship</button>
+    <button onclick="switchView('page2')">Membership Details</button>
+  </div>
+</header>
+
+<!-- PAGE 1: LEAD GENERATION -->
+
+<main id="view-page1" class="view-container active">
+
+  <section class="hero" id="hero">
+    <div class="container-main hero-content">
+      <div class="eyebrow">
+        <i class="fa-solid fa-bolt"></i> Alpha Auron Private Limited
+      </div>
+
+      <h1>
+        Your Skills.<br>
+        <span class="gradient-text">Real Projects.</span><br>
+        Real Opportunities.
+      </h1>
+
+      <p>
+        Talent Forge is designed to connect skilled professionals with
+        project-oriented opportunities through a structured membership
+        approach. Explore the available membership levels and learn how
+        the process works.
+      </p>
+
+      <div class="hero-actions">
+        <button class="red-button" onclick="navigateToSection('page1','plans')">
+          Explore Membership Plans <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <button class="outline-button" onclick="navigateToSection('page1','how-it-works')">
+          Discover How It Works
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL CATEGORIES -->
+
+  <section class="section" id="categories">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">14 Professional <span class="red-text">Categories</span></h2>
+        <p class="section-subtitle">
+          Explore professional domains and identify the category that best
+          matches your skills, experience and interests.
+        </p>
+      </div>
+
+      <div class="category-grid">
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-code"></i><div class="category-heading"><span class="category-number">01</span><h3>Web Development</h3></div><p>Plan, build and maintain responsive websites and web applications. Work with front-end and back-end technologies to create secure, accessible and smooth digital experiences.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-mobile-screen"></i><div class="category-heading"><span class="category-number">02</span><h3>App Development</h3></div><p>Create mobile applications for Android and iOS devices. Turn ideas into useful app features, test performance and improve the experience for people using the product.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-pen-ruler"></i><div class="category-heading"><span class="category-number">03</span><h3>UI / UX Design</h3></div><p>Design clear, attractive and easy-to-use digital products. Research user needs, organise information and create wireframes, prototypes and polished interface layouts.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-chart-line"></i><div class="category-heading"><span class="category-number">04</span><h3>Data Analytics</h3></div><p>Collect, organise and study information to discover useful patterns. Prepare reports, dashboards and insights that help teams understand performance and make informed decisions.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-brain"></i><div class="category-heading"><span class="category-number">05</span><h3>Artificial Intelligence</h3></div><p>Explore AI and machine-learning solutions for real business needs. Prepare data, build or support intelligent models and help automate tasks while reviewing the quality of results.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-bullhorn"></i><div class="category-heading"><span class="category-number">06</span><h3>Digital Marketing</h3></div><p>Promote products and services through search, social media, email and online campaigns. Plan content, understand audience behaviour and track campaign performance to improve reach.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-magnifying-glass-chart"></i><div class="category-heading"><span class="category-number">07</span><h3>Business Analysis</h3></div><p>Understand business challenges and document what a team or customer needs. Map processes, coordinate with stakeholders and translate requirements into practical solutions.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-users"></i><div class="category-heading"><span class="category-number">08</span><h3>Human Resources</h3></div><p>Support hiring, onboarding and day-to-day people operations. Help maintain employee information, coordinate communication and contribute to a positive workplace experience.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-briefcase"></i><div class="category-heading"><span class="category-number">09</span><h3>Business Development</h3></div><p>Research markets, identify potential opportunities and build professional relationships. Support proposals, partnerships and follow-ups that help an organisation grow.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-handshake"></i><div class="category-heading"><span class="category-number">10</span><h3>Sales & Marketing</h3></div><p>Understand customer requirements and explain how a product or service can help. Support lead generation, sales conversations, promotions and customer relationship activities.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-laptop-code"></i><div class="category-heading"><span class="category-number">11</span><h3>Software Testing</h3></div><p>Check applications to identify defects and quality issues before release. Prepare test cases, record results and work with development teams to improve reliability and usability.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-microchip"></i><div class="category-heading"><span class="category-number">12</span><h3>Cloud & DevOps</h3></div><p>Support cloud platforms, deployment pipelines and infrastructure operations. Help automate repeatable tasks, monitor systems and improve the speed and reliability of software delivery.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-shield-halved"></i><div class="category-heading"><span class="category-number">13</span><h3>Cybersecurity</h3></div><p>Help protect digital systems, networks and information. Support security checks, risk awareness, access controls and responsible practices that reduce exposure to cyber threats.</p></div>
+        </div>
+
+        <div class="category-card reveal">
+          <div><i class="fa-solid fa-palette"></i><div class="category-heading"><span class="category-number">14</span><h3>Creative & Content</h3></div><p>Develop engaging visual, written and multimedia material for different audiences. Support concepts, design, editing and content planning while keeping communication consistent.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+
+  <section class="section bg-[#0d0d0d]" id="how-it-works">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">How <span class="red-text">Talent Forge</span> Works</h2>
+        <p class="section-subtitle">
+          A structured journey from initial enquiry to membership onboarding
+          and project-related communication.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=500&q=80" alt="Explore Talent Forge">
+          <div class="step-content">
+            <div class="step-number">01</div>
+            <h3>Explore Talent Forge</h3>
+            <p>Explore the Talent Forge programme to understand its purpose, the professional categories available and the way membership enquiries are handled. Read the information carefully, identify the category that matches your experience and note any questions you would like to discuss with the team.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80" alt="Choose a membership">
+          <div class="step-content">
+            <div class="step-number">02</div>
+            <h3>Select Your Plan</h3>
+            <p>Review the five membership options—Starter, Professional, Specialist, Elite and Auron—along with their displayed fees and listed details. Compare the information with your own goals and budget, and contact the authorised team if you need clarification about benefits, duration or applicable terms before making a decision.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80" alt="Enquiry and discussion">
+          <div class="step-content">
+            <div class="step-number">03</div>
+            <h3>Submit Your Enquiry</h3>
+            <p>Complete the enquiry form with accurate contact information, your professional category, skills, experience and preferred membership level. Add a clear message about the kind of work or opportunity you are interested in so the team can understand your requirements and respond appropriately.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=500&q=80" alt="Membership onboarding">
+          <div class="step-content">
+            <div class="step-number">04</div>
+            <h3>Associate Discussion</h3>
+            <p>After submitting your enquiry, connect with the authorised Talent Forge associate for a discussion. Use this conversation to clarify the enrolment process, required information, membership conditions, payment details and any other questions; proceed only after you understand and agree to the applicable terms.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Profile review">
+          <div class="step-content">
+            <div class="step-number">05</div>
+            <h3>Profile Review</h3>
+            <p>Provide your updated profile, qualifications, portfolio and relevant work experience for review. The team may consider the information you share alongside available project requirements, skill expectations and timelines; keep your details accurate so that suitability can be assessed appropriately.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80" alt="Project communication">
+          <div class="step-content">
+            <div class="step-number">06</div>
+            <h3>Project Communication</h3>
+            <p>When relevant project information is available, the team may share details such as the work scope, required skills, expected timelines and coordination process. Review the information, ask questions where needed and confirm your interest and availability before accepting any assignment.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=500&q=80" alt="Project execution">
+          <div class="step-content">
+            <div class="step-number">07</div>
+            <h3>Project Execution</h3>
+            <p>If a project is offered and mutually accepted, complete the work according to the agreed scope, quality expectations, deadlines and communication process. Keep the concerned contact updated on progress, raise blockers early and follow the project instructions and agreed responsibilities.</p>
+          </div>
+        </article>
+
+        <article class="step-card reveal">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=500&q=80" alt="Project completion">
+          <div class="step-content">
+            <div class="step-number">08</div>
+            <h3>Completion & Review</h3>
+            <p>Once the agreed work is completed, submit the required deliverables and participate in the review or feedback process. Any closure, approval and applicable compensation will be handled according to the specific project agreement and confirmed terms.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP PLANS -->
+
+  <section class="section" id="plans">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Choose Your <span class="red-text">Membership Plan</span></h2>
+        <p class="section-subtitle">
+          Explore the five membership levels and compare the illustrative
+          project-value information shown for each plan.
+        </p>
+      </div>
+
+      <div class="plan-tools reveal">
+        <div class="duration-box">
+          <i class="fa-regular fa-calendar-check"></i>
+          <span><strong>Membership Duration:</strong> 6–12 Months</span>
+        </div>
+
+        <button class="brochure-box" onclick="downloadBrochure()">
+          <i class="fa-solid fa-file-pdf"></i>
+          Download Brochure
+        </button>
+      </div>
+
+      <div class="plans-grid">
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 1</div>
+          <h3>Starter</h3>
+          <div class="plan-price">₹12,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹3,500 – ₹5,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Entry-level membership</li>
+            <li><i class="fa-solid fa-check"></i> 1 project / month*</li>
+            <li><i class="fa-solid fa-check"></i> Basic programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project-related communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹42,000 – ₹60,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Starter')">Choose Starter</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 2</div>
+          <h3>Professional</h3>
+          <div class="plan-price">₹24,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹7,000 – ₹10,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Professional membership</li>
+            <li><i class="fa-solid fa-check"></i> 1 project / month*</li>
+            <li><i class="fa-solid fa-check"></i> Programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹84,000 – ₹1,20,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Professional')">Choose Professional</button>
+        </article>
+
+        <article class="plan-card featured reveal">
+          <div class="plan-label">Level 3 · Popular</div>
+          <h3>Specialist</h3>
+          <div class="plan-price">₹42,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹12,500 – ₹17,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Specialist membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project coordination</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹1,50,000 – ₹2,04,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Specialist')">Choose Specialist</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 4</div>
+          <h3>Elite</h3>
+          <div class="plan-price">₹70,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹20,500 – ₹28,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Elite membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme coordination</li>
+            <li><i class="fa-solid fa-check"></i> Professional communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹2,46,000 – ₹3,36,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Elite')">Choose Elite</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 5</div>
+          <h3>Auron</h3>
+          <div class="plan-price">₹1,10,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹32,500 – ₹42,500</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Auron membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme coordination</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated communication channel</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹3,90,000 – ₹5,10,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Auron')">Choose Auron</button>
+        </article>
+
+      </div>
+
+      <p class="text-center text-neutral-500 text-[10px] leading-6 mt-4">
+        *Project frequency and project values are illustrative, not guaranteed.
+        Actual project availability, eligibility, allocation, compensation and
+        duration are subject to official programme terms and written confirmation.
+      </p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+
+  <section class="section bg-[#0d0d0d]" id="benefits">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Why Explore <span class="red-text">Talent Forge?</span></h2>
+        <p class="section-subtitle">
+          A structured membership experience focused on professional information,
+          project communication and engagement.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3>Multiple Membership Levels</h3>
+          <p>Choose from five membership levels and review their respective pricing and illustrative project-value information.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <h3>Professional Skill Categories</h3>
+          <p>Explore a range of professional domains and identify the area that matches your capabilities and experience.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-list-check"></i></div>
+          <h3>Structured Enquiry Process</h3>
+          <p>Submit your professional details through a clear enquiry process so the relevant team can understand your interest.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-comments"></i></div>
+          <h3>Associate Communication</h3>
+          <p>Discuss membership options, enrolment requirements and programme terms with an authorised Talent Forge Associate.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-diagram-project"></i></div>
+          <h3>Project-related Engagement</h3>
+          <p>Understand how project requirements, suitability, availability and communication may form part of the engagement process.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h3>Defined Membership Duration</h3>
+          <p>Review the stated 6–12 month membership duration and clarify the applicable terms before enrolment.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <h3>Transparent Plan Information</h3>
+          <p>Compare the available membership fees and illustrative project-value ranges before selecting a plan.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-people-group"></i></div>
+          <h3>Professional Coordination</h3>
+          <p>Keep communication organised around enquiries, profile information, project requirements and agreed next steps.</p>
+        </article>
+
+        <article class="dark-card benefit-card reveal">
+          <div class="benefit-icon"><i class="fa-solid fa-circle-question"></i></div>
+          <h3>Information & Clarification</h3>
+          <p>Get an opportunity to clarify membership conditions, project expectations and compensation terms before proceeding.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="section" id="faq">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Frequently Asked <span class="red-text">Questions</span></h2>
+        <p class="section-subtitle">
+          Important information about Talent Forge membership and the enquiry process.
+          Confirm applicable terms with an authorised company representative.
+        </p>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            What is Talent Forge?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Talent Forge is a membership-oriented programme presented by Alpha Auron
+            Private Limited. It provides information about membership levels and a
+            process for professionals to express interest in project-related opportunities.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            Who can join Talent Forge?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Professionals who have relevant skills or experience in the listed
+            categories may submit an enquiry. Eligibility and any specific requirements
+            should be confirmed with an authorised Talent Forge Associate.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            What are the available membership plans?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Five membership levels are displayed: Starter, Professional, Specialist,
+            Elite and Auron. Each level has its own stated membership fee and
+            illustrative project-value range.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            How much does membership cost?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            The displayed membership fees are Starter ₹12,000, Professional ₹24,000,
+            Specialist ₹42,000, Elite ₹70,000 and Auron ₹1,10,000. Please confirm
+            the applicable duration, payment terms, taxes (if any) and current
+            official pricing before enrolment.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            How does project allocation work?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Project-related engagement may depend on available requirements, the
+            professional's skills, profile suitability and the applicable programme
+            terms. The allocation process and conditions should be explained by the
+            authorised company representative.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            Will every member receive a monthly project?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            A monthly project is not guaranteed by the illustrative plan information.
+            Actual project availability and allocation depend on requirements,
+            suitability and the official membership terms. Please obtain written
+            clarification before joining.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            How does project compensation work?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            The project scope, deliverables, compensation amount and payment
+            conditions should be communicated and agreed before a project begins.
+            The illustrative values on this page should not be treated as guaranteed income.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            When are payouts processed?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Payout timing and processing conditions are not specified here.
+            Please confirm the payment schedule, approval process and applicable
+            conditions with the authorised Talent Forge Associate before accepting work.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            How do I complete enrolment?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Select your preferred plan, submit the enquiry form and discuss the
+            programme details with an authorised associate. Complete enrolment
+            only after reviewing the official terms, payment details and applicable documentation.
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-question">
+            Can I contact a Talent Forge Associate?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            Yes. You can contact Yasaswini at yasaswini@alphaauron.com or
+            +91 9494720904 for membership-related enquiries and clarification.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ENQUIRY FORM AND CONTACT -->
+
+  <section class="section bg-[#0d0d0d]" id="enquiry-form">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Start Your <span class="red-text">Talent Forge Journey</span></h2>
+        <p class="section-subtitle">
+          Share your details to express interest. Our team can contact you
+          to discuss the membership information and next steps.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="dark-card contact-card reveal">
+          <div class="eyebrow">Official Contact</div>
+          <h3>Connect with <span class="red-text">Talent Forge</span></h3>
+          <p class="text-neutral-400 text-[11px] leading-7 mb-4">
+            For membership enquiries, programme information and enrolment-related
+            clarification, connect with our designated contact.
+          </p>
+
+          <div class="contact-line">
+            <i class="fa-solid fa-user-tie"></i>
+            <div>
+              <strong class="text-white block">Yasaswini</strong>
+              <span>Talent Forge Associate Contact</span>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong class="text-white block">Email</strong>
+              <a href="mailto:yasaswini@alphaauron.com">yasaswini@alphaauron.com</a>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong class="text-white block">Phone</strong>
+              <a href="tel:+919494720904">+91 9494720904</a>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div>
+              <strong class="text-white block">WhatsApp</strong>
+              <a href="https://wa.me/919494720904" target="_blank" rel="noopener noreferrer">+91 9494720904</a>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <i class="fa-solid fa-building"></i>
+            <div>
+              <strong class="text-white block">Organisation</strong>
+              <span>Alpha Auron Private Limited</span>
+            </div>
+          </div>
+
+          <div class="contact-actions mt-5">
+            <a class="contact-icon-link" href="mailto:yasaswini@alphaauron.com" aria-label="Email Talent Forge"><i class="fa-solid fa-envelope"></i></a>
+            <a class="contact-icon-link" href="tel:+919494720904" aria-label="Call Talent Forge"><i class="fa-solid fa-phone"></i></a>
+            <a class="contact-icon-link" href="https://wa.me/919494720904" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Talent Forge"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="dark-card form-card reveal">
+          <h3>Membership Enquiry Form</h3>
+          <p>Enter your details accurately. Fields marked * are required.</p>
+
+          <form id="leadForm">
+            <div class="form-grid">
+
+              <div class="form-field">
+                <label for="fullName">Full Name *</label>
+                <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="form-field">
+                <label for="email">Email Address *</label>
+                <input id="email" name="email" type="email" placeholder="Enter your email" required>
+              </div>
+
+              <div class="form-field">
+                <label for="phone">Phone Number *</label>
+                <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
+              </div>
+
+              <div class="form-field">
+                <label for="category">Professional Category *</label>
+                <select id="category" name="category" required>
+                  <option value="">Select category</option>
+                  <option>Web Development</option>
+                  <option>App Development</option>
+                  <option>UI / UX Design</option>
+                  <option>Data Analytics</option>
+                  <option>Artificial Intelligence</option>
+                  <option>Digital Marketing</option>
+                  <option>Business Analysis</option>
+                  <option>Human Resources</option>
+                  <option>Business Development</option>
+                  <option>Sales & Marketing</option>
+                  <option>Software Testing</option>
+                  <option>Cloud & DevOps</option>
+                  <option>Cybersecurity</option>
+                  <option>Creative & Content</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="skills">Skills *</label>
+                <input id="skills" name="skills" type="text" placeholder="e.g. Python, Java, SQL" required>
+              </div>
+
+              <div class="form-field">
+                <label for="experience">Experience *</label>
+                <select id="experience" name="experience" required>
+                  <option value="">Select experience</option>
+                  <option>Fresher</option>
+                  <option>Less than 1 year</option>
+                  <option>1–2 years</option>
+                  <option>2–5 years</option>
+                  <option>5+ years</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="currentStatus">Current Status *</label>
+                <select id="currentStatus" name="currentStatus" required>
+                  <option value="">Select status</option>
+                  <option>Student</option>
+                  <option>Fresher</option>
+                  <option>Working Professional</option>
+                  <option>Freelancer</option>
+                  <option>Business Owner</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="duration">Preferred Duration *</label>
+                <select id="duration" name="duration" required>
+                  <option value="">Select duration</option>
+                  <option>6 Months</option>
+                  <option>9 Months</option>
+                  <option>12 Months</option>
+                </select>
+              </div>
+
+              <div class="form-field full">
+                <label for="plan">Interested Membership Plan *</label>
+                <select id="plan" name="plan" required>
+                  <option value="">Select membership plan</option>
+                  <option>Starter</option>
+                  <option>Professional</option>
+                  <option>Specialist</option>
+                  <option>Elite</option>
+                  <option>Auron</option>
+                </select>
+              </div>
+
+              <div class="form-field full">
+                <label for="message">Additional Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your goals or questions..."></textarea>
+              </div>
+
+              <div class="honeypot" aria-hidden="true">
+                <label for="website">Website</label>
+                <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </div>
+
+            </div>
+
+            <label class="consent">
+              <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+              <span>I agree to be contacted regarding my Talent Forge enquiry and understand that my information will be used to respond to this request.</span>
+            </label>
+
+            <button type="submit" id="submitBtn" class="red-button w-full">
+              Submit Enquiry <i class="fa-solid fa-paper-plane"></i>
+            </button>
+
+            <div id="formStatus" class="form-status" role="status"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- PAGE 2: MEMBERSHIP DETAILS -->
+
+<main id="view-page2" class="view-container">
+  <section class="sales-hero">
+    <div class="container-main">
+      <div class="eyebrow">Talent Forge Membership</div>
+      <h1>Membership <span class="red-text">Details</span></h1>
+      <p>
+        Review the five membership levels, displayed fees and illustrative
+        project-value information. Confirm the current official terms with
+        an authorised company representative before enrolment.
+      </p>
+      <button class="red-button mt-4" onclick="navigateToSection('page1','plans')">
+        View Membership Plans <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Explore All Five <span class="red-text">Membership Levels</span></h2>
+        <p class="section-subtitle">
+          A quick overview of the available membership options.
+        </p>
+      </div>
+
+      <div class="plans-grid">
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 1</div>
+          <h3>Starter</h3>
+          <div class="plan-price">₹12,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹3,500 – ₹5,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Entry-level membership</li>
+            <li><i class="fa-solid fa-check"></i> 1 project / month*</li>
+            <li><i class="fa-solid fa-check"></i> Basic programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project-related communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹42,000 – ₹60,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Starter')">Choose Starter</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 2</div>
+          <h3>Professional</h3>
+          <div class="plan-price">₹24,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹7,000 – ₹10,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Professional membership</li>
+            <li><i class="fa-solid fa-check"></i> 1 project / month*</li>
+            <li><i class="fa-solid fa-check"></i> Programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹84,000 – ₹1,20,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Professional')">Choose Professional</button>
+        </article>
+
+        <article class="plan-card featured reveal">
+          <div class="plan-label">Level 3 · Popular</div>
+          <h3>Specialist</h3>
+          <div class="plan-price">₹42,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹12,500 – ₹17,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Specialist membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme guidance</li>
+            <li><i class="fa-solid fa-check"></i> Project coordination</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹1,50,000 – ₹2,04,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Specialist')">Choose Specialist</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 4</div>
+          <h3>Elite</h3>
+          <div class="plan-price">₹70,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹20,500 – ₹28,000</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Elite membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme coordination</li>
+            <li><i class="fa-solid fa-check"></i> Professional communication</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹2,46,000 – ₹3,36,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Elite')">Choose Elite</button>
+        </article>
+
+        <article class="plan-card reveal">
+          <div class="plan-label">Level 5</div>
+          <h3>Auron</h3>
+          <div class="plan-price">₹1,10,000</div>
+          <div class="plan-duration">Membership fee · 6–12 months</div>
+          <div class="plan-value">
+            <small>Illustrative monthly project value</small>
+            <strong>₹32,500 – ₹42,500</strong>
+          </div>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Auron membership</li>
+            <li><i class="fa-solid fa-check"></i> Project-based engagement*</li>
+            <li><i class="fa-solid fa-check"></i> Programme coordination</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated communication channel</li>
+          </ul>
+          <div class="plan-value">
+            <small>Illustrative 12-month potential</small>
+            <strong>₹3,90,000 – ₹5,10,000</strong>
+          </div>
+          <button class="red-button" onclick="choosePlan('Auron')">Choose Auron</button>
+        </article>
+
+      </div>
+
+      <p class="text-center text-neutral-500 text-[10px] leading-6 mt-4">
+        *Project frequency and project values are illustrative, not guaranteed.
+        Actual project availability, eligibility, allocation, compensation and
+        duration are subject to official programme terms and written confirmation.
+      </p>
+      <div class="text-center mt-7 reveal">
+        <a class="outline-button inline-flex items-center gap-2" href="https://alphaauron.com" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-globe"></i> www.alphaauron.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-[#0d0d0d]">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Membership <span class="red-text">Comparison</span></h2>
+        <p class="section-subtitle">Compare the displayed fees and illustrative values.</p>
+      </div>
+
+      <div class="comparison-wrap reveal">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Membership</th>
+              <th>Fee</th>
+              <th>Illustrative Monthly Value</th>
+              <th>Illustrative 12-Month Value</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Starter</td><td>₹12,000</td><td>₹3,500–₹5,000</td><td>₹42,000–₹60,000</td><td>6–12 Months</td></tr>
+            <tr><td>Professional</td><td>₹24,000</td><td>₹7,000–₹10,000</td><td>₹84,000–₹1,20,000</td><td>6–12 Months</td></tr>
+            <tr><td>Specialist</td><td>₹42,000</td><td>₹12,500–₹17,000</td><td>₹1,50,000–₹2,04,000</td><td>6–12 Months</td></tr>
+            <tr><td>Elite</td><td>₹70,000</td><td>₹20,500–₹28,000</td><td>₹2,46,000–₹3,36,000</td><td>6–12 Months</td></tr>
+            <tr><td>Auron</td><td>₹1,10,000</td><td>₹32,500–₹42,500</td><td>₹3,90,000–₹5,10,000</td><td>6–12 Months</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-neutral-500 text-[10px] leading-6 mt-4">
+        Values are illustrative figures from the displayed membership information.
+        They do not constitute a promise of project allocation, monthly income or
+        guaranteed returns. Please verify all terms with the company before payment.
+      </p>
+
+      <div class="text-center mt-8">
+        <button class="red-button" onclick="navigateToSection('page1','enquiry-form')">
+          Discuss Your Membership <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- PAGE 3: SALES FORCE -->
+
+<main id="view-page3" class="view-container">
+
+  <section class="sales-hero" id="sales-overview">
+    <div class="container-main">
+      <div class="eyebrow">Talent Forge · Sales Force</div>
+      <h1>Building Better <span class="red-text">Client Connections</span></h1>
+      <p>
+        The Sales Force function supports communication between interested
+        professionals and the Talent Forge programme. It focuses on understanding
+        enquiries, explaining available membership information, coordinating
+        follow-ups and helping people reach the appropriate next step.
+      </p>
+      <button class="red-button mt-4" onclick="navigateToSection('page1','enquiry-form')">
+        Connect with Talent Forge <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Sales <span class="red-text">Overview</span></h2>
+        <p class="section-subtitle">
+          A professional, information-led approach to enquiry handling and
+          membership communication.
+        </p>
+      </div>
+      <div class="sf-explain reveal"><strong>What this means:</strong> The Sales Force is the first point of contact between a person who submits an enquiry and the Talent Forge programme. Its job is to listen, share accurate membership information and guide the person to the correct next step. It does not promise project allocation, income or returns — official terms and written confirmation from Alpha Auron Private Limited always apply.</div>
+
+      <div class="sales-feature-grid">
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-user-check"></i>
+          <h3>Understand Enquiries</h3>
+          <p>Understand the prospect's background, skills, interests and reason for contacting Talent Forge.</p>
+          <p class="sf-more"><strong>In detail:</strong> When someone submits the enquiry form, the associate reads the details — professional category, skills, experience, current status and chosen plan — so the first conversation is relevant to that person.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-comments"></i>
+          <h3>Explain Membership</h3>
+          <p>Communicate the available membership levels, stated fees, duration and applicable programme information.</p>
+          <p class="sf-more"><strong>In detail:</strong> The associate shares the five membership levels with their stated fees and 6–12 month duration, and makes it clear that project values shown are illustrative and not guaranteed.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-handshake"></i>
+          <h3>Support Next Steps</h3>
+          <p>Help interested individuals understand the enquiry, discussion and enrolment process.</p>
+          <p class="sf-more"><strong>In detail:</strong> If the person wishes to continue, the associate explains what happens next — discussion, review of the terms and the official enrolment steps — so no step comes as a surprise.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALES PROCESS -->
+
+  <section class="section bg-[#0d0d0d]" id="sales-process">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Our Sales <span class="red-text">Process</span></h2>
+        <p class="section-subtitle">
+          A clear sequence for managing an enquiry from first contact to
+          documented next steps.
+        </p>
+      </div>
+      <div class="sf-explain reveal"><strong>How to read this:</strong> Every enquiry follows the same eight steps so that nothing is missed. The steps run from receiving the enquiry to ongoing coordination, and each one has a clear purpose: understand the person, explain the programme accurately, answer questions and record the outcome.</div>
+
+      <div class="process-list">
+        <article class="dark-card process-card reveal">
+          <span>STEP 01</span>
+          <h3>Enquiry Received</h3>
+          <p>Receive the prospect's details and understand the purpose of their enquiry.</p>
+          <p class="sf-more"><strong>In detail:</strong> This starts automatically when the enquiry form is submitted. The enquiry is saved with a unique Lead ID and the associate is notified by email.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 02</span>
+          <h3>Initial Communication</h3>
+          <p>Contact the prospect through the appropriate channel and understand their requirements.</p>
+          <p class="sf-more"><strong>In detail:</strong> The associate reaches out by phone, email or WhatsApp to introduce herself, confirm the details and understand what the person is looking for.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 03</span>
+          <h3>Programme Explanation</h3>
+          <p>Explain the available membership plans, fees, duration and relevant conditions accurately.</p>
+          <p class="sf-more"><strong>In detail:</strong> Plans, fees, duration and conditions are explained exactly as published, so the person can compare the five levels using correct information.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 04</span>
+          <h3>Requirement Discussion</h3>
+          <p>Understand professional skills, experience, category and expectations.</p>
+          <p class="sf-more"><strong>In detail:</strong> The associate asks about skills, experience and goals to understand which category and membership level matches the person's expectations.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 05</span>
+          <h3>Follow-up</h3>
+          <p>Respond to questions and share verified information requested by the prospect.</p>
+          <p class="sf-more"><strong>In detail:</strong> Questions raised in earlier steps are answered, and only verified information is shared. Anything uncertain is checked before a reply is given.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 06</span>
+          <h3>Enrolment Guidance</h3>
+          <p>Explain the official enrolment steps and direct the prospect to the authorised process.</p>
+          <p class="sf-more"><strong>In detail:</strong> The person is told the official enrolment steps and directed to the authorised process. Enrolment is completed only through that process.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 07</span>
+          <h3>Status Update</h3>
+          <p>Keep enquiry status and communication records organised for appropriate follow-up.</p>
+          <p class="sf-more"><strong>In detail:</strong> After each conversation the enquiry status is updated (for example Contacted, Follow-up or Enrolled) so the records stay accurate.</p>
+        </article>
+
+        <article class="dark-card process-card reveal">
+          <span>STEP 08</span>
+          <h3>Ongoing Coordination</h3>
+          <p>Direct membership-related questions to the appropriate team or authorised contact.</p>
+          <p class="sf-more"><strong>In detail:</strong> Once the initial process is complete, membership questions are passed to the right team or authorised contact so the person gets a reliable answer.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD MANAGEMENT -->
+
+  <section class="section" id="lead-management">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Lead <span class="red-text">Management</span></h2>
+        <p class="section-subtitle">
+          Organised lead management helps ensure enquiries are recorded,
+          understood and followed up in a consistent manner.
+        </p>
+      </div>
+      <div class="sf-explain reveal"><strong>What is a lead?</strong> A lead is a person who has shown interest by submitting the enquiry form. Lead management means saving each enquiry securely, checking what the person needs and tracking its status, so the associate can follow up on time.</div>
+
+      <div class="sales-feature-grid">
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-database"></i>
+          <h3>Lead Capture</h3>
+          <p>Collect relevant prospect information through the enquiry form and record the details accurately.</p>
+          <p class="sf-more"><strong>In detail:</strong> Each submission is stored securely with a unique Lead ID, the date and time and the lead source, so no enquiry is lost.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-filter"></i>
+          <h3>Lead Qualification</h3>
+          <p>Understand each enquiry's category, skills, experience, interest and communication requirements.</p>
+          <p class="sf-more"><strong>In detail:</strong> The details are reviewed to understand fit — category, skills, experience and interest — so the follow-up is focused and relevant.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <h3>Lead Tracking</h3>
+          <p>Maintain clear enquiry status and communication history to support timely follow-up.</p>
+          <p class="sf-more"><strong>In detail:</strong> Each lead carries a status and communication history, so the associate knows who to contact next and when.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT RELATIONSHIP -->
+
+  <section class="section bg-[#0d0d0d]" id="client-relationship">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Client <span class="red-text">Relationship Management</span></h2>
+        <p class="section-subtitle">
+          Professional communication builds clarity, trust and a better
+          experience throughout the enquiry journey.
+        </p>
+      </div>
+      <div class="sf-explain reveal"><strong>Why it matters:</strong> This is about how the team communicates. The aim is that every person receives clear, honest and respectful answers, so they can decide for themselves whether the membership suits them.</div>
+
+      <div class="sales-feature-grid">
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-ear-listen"></i>
+          <h3>Understand Client Needs</h3>
+          <p>Listen carefully to the prospect's questions, expectations and professional goals.</p>
+          <p class="sf-more"><strong>In detail:</strong> Listening comes first: the associate notes the person's goals and doubts before sharing any information.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-message"></i>
+          <h3>Clear Communication</h3>
+          <p>Provide accurate information in a simple, respectful and professional manner.</p>
+          <p class="sf-more"><strong>In detail:</strong> Information is shared in simple language, without exaggeration, so the person clearly understands what is and is not included.</p>
+        </article>
+
+        <article class="sales-feature reveal" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=80')">
+          <i class="fa-solid fa-heart"></i>
+          <h3>Relationship Support</h3>
+          <p>Maintain appropriate follow-up and help prospects reach the right contact for further assistance.</p>
+          <p class="sf-more"><strong>In detail:</strong> The team follows up at suitable times and connects the person with the right contact if more help is needed.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALES TEAM -->
+
+  <section class="section" id="sales-team">
+    <div class="container-main">
+      <div class="text-center reveal">
+        <h2 class="section-title">Connect with Our <span class="red-text">Team</span></h2>
+        <p class="section-subtitle">
+          For official membership questions and programme clarification,
+          contact the designated Talent Forge Associate.
+        </p>
+      </div>
+      <div class="sf-explain reveal"><strong>Who will contact you:</strong> Yasaswini is the designated Talent Forge Associate. After you submit the enquiry form she receives your details and contacts you. You can also reach her directly by email, phone or WhatsApp using the options below.</div>
+
+      <div class="max-w-xl mx-auto dark-card p-7 text-center reveal">
+        <div class="w-14 h-14 rounded-full bg-red-950 border border-red-800 grid place-items-center mx-auto mb-4">
+          <i class="fa-solid fa-user-tie text-red-400 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-extrabold">Yasaswini</h3>
+        <p class="text-red-400 text-xs mt-1">Talent Forge Associate Contact</p>
+        <p class="text-neutral-400 text-xs leading-6 mt-4">
+          Contact for membership enquiries, plan information and
+          programme-related clarification.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 mt-5">
+          <a href="mailto:yasaswini@alphaauron.com" class="red-button">
+            <i class="fa-solid fa-envelope"></i> Email Yasaswini
+          </a>
+          <a href="tel:+919494720904" class="outline-button">
+            <i class="fa-solid fa-phone"></i> Call Associate
+          </a>
+          <a href="https://wa.me/919494720904" target="_blank" rel="noopener noreferrer" class="outline-button">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="container-main">
+    <div class="footer-inner">
+      <div>
+        <div class="brand">TALENT <span>FORGE</span></div>
+        <p>Alpha Auron Private Limited<br>Professional Membership & Project Engagement Information</p>
+      </div>
+
+      <div class="footer-links">
+        <button onclick="switchView('page1')">Home</button>
+        <button onclick="navigateToSection('page1','plans')">Membership Plans</button>
+        <button onclick="switchView('page2')">Membership Details</button>
+        <button onclick="switchView('page3')">Sales Force</button>
+        <button onclick="navigateToSection('page1','faq')">FAQs</button>
+        <button onclick="navigateToSection('page1','enquiry-form')">Contact</button>
+        <button onclick="location.hash='#admin'">Admin Login</button>
+        <button onclick="location.hash='#yasaswini'">Yasaswini Login</button>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <div class="footer-contact-item">
+        <h4>Organization</h4>
+        <p><strong>Alpha Auron Private Limited</strong></p>
+        <a href="https://alphaauron.com" target="_blank" rel="noopener noreferrer">alphaauron.com</a>
+      </div>
+      <div class="footer-contact-item">
+        <h4>Admin</h4>
+        <p><strong>Poojitha</strong></p>
+        <a href="mailto:poojitha@alphaauron.com">poojitha@alphaauron.com</a>
+      </div>
+      <div class="footer-contact-item">
+        <h4>Associate</h4>
+        <p><strong>Yasaswini</strong> · Talent Forge Associate</p>
+        <a href="mailto:yasaswini@alphaauron.com">yasaswini@alphaauron.com</a>
+      </div>
+      <div class="footer-contact-item">
+        <h4>Call / WhatsApp</h4>
+        <a href="tel:+919494720904">+91 9494720904</a>
+        <a href="https://wa.me/919494720904" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+      </div>
+      <div class="footer-contact-item">
+        <h4>Website</h4>
+        <a href="https://alphaauron.com" target="_blank" rel="noopener noreferrer">www.alphaauron.com</a>
+        <a href="https://alphaauron.com" target="_blank" rel="noopener noreferrer">Alpha Auron Private Limited</a>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong class="text-neutral-400">Important Information:</strong>
+      Membership fees and illustrative project-value figures are displayed for
+      informational purposes. Project availability, allocation, frequency,
+      compensation, payment timelines and eligibility are subject to the
+      applicable official programme terms and written confirmation from
+      Alpha Auron Private Limited. No project allocation, income or return
+      is guaranteed by this page.
+      <br><br>
+      © <span id="currentYear"></span> Alpha Auron Private Limited. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<!-- Submit Enquiry success animation -->
+<div class="tfs-overlay" id="tfsOverlay" role="dialog" aria-modal="true" aria-labelledby="tfsTitle">
+  <div class="tfs-card">
+    <div class="tfs-badge" id="tfsBadge">
+      <span class="ring"></span><span class="ring r2"></span>
+      <svg viewBox="0 0 110 110" aria-hidden="true"><circle class="tfs-disc" cx="55" cy="55" r="52"/><path class="tfs-tick" d="M33 57 L48 72 L77 40"/></svg>
+    </div>
+    <h3 id="tfsTitle">Submitted Successfully</h3>
+    <p>Thank you! Your enquiry has been submitted successfully. Our team will contact you.</p>
+    <div class="tfs-ref" id="tfsRef" style="display:none"></div>
+    <button type="button" class="red-button w-full" id="tfsClose">Done</button>
+  </div>
+</div>
+
+<!-- Yasaswini / Admin portal (#yasaswini, #admin) -->
+<div class="tfp-overlay" id="tfpOverlay">
+  <div class="tfp-login-wrap" id="tfpLogin">
+    <form class="tfp-card" id="tfpLoginForm" autocomplete="on">
+      <div class="tfp-brand">TALENT <span>FORGE</span></div>
+      <h2 id="tfpLoginTitle">Login</h2>
+      <p class="sub">Authorised access only. Please sign in to continue.</p>
+      <div class="tfp-error" id="tfpLoginError" role="alert"></div>
+      <div class="tfp-field"><label for="tfpUser">Username</label><input id="tfpUser" name="tfp-user" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" required></div>
+      <div class="tfp-field"><label for="tfpPass">Password</label><input id="tfpPass" name="tfp-pass" type="password" autocomplete="new-password" required></div>
+      <button type="submit" class="red-button w-full" id="tfpLoginBtn">Sign In</button>
+      <button type="button" class="tfp-link" id="tfpSwitch"></button>
+      <button type="button" class="tfp-link" data-tfp-back>← Back to website</button>
+    </form>
+  </div>
+
+  <div class="tfp-dash" id="tfpDash" style="display:none">
+    <div class="tfp-top">
+      <h1 id="tfpDashTitle">Dashboard<small id="tfpDashSub"></small></h1>
+      <div class="tfp-actions">
+        <button class="tfp-btn" id="tfpRefresh">Refresh</button>
+        <button class="tfp-btn" id="tfpExport" style="display:none">Export CSV</button>
+        <button class="tfp-btn" data-tfp-back>Website</button>
+        <button class="tfp-btn primary" id="tfpLogout">Logout</button>
+      </div>
+    </div>
+    <div class="tfp-stats" id="tfpStats"></div>
+    <div class="tfp-break" id="tfpBreak" style="display:none"></div>
+    <div class="tfp-tabs" id="tfpTabs">
+      <button class="tfp-tab active" data-tab="leads">Enquiries</button>
+      <button class="tfp-tab" data-tab="logs" id="tfpLogsTab" style="display:none">Email Delivery Log</button>
+    </div>
+    <div id="tfpPaneLeads">
+      <div class="tfp-toolbar">
+        <input id="tfpSearch" type="search" placeholder="Search name, email, phone, Lead ID, skills…">
+        <select id="tfpStatusFilter"></select>
+        <select id="tfpPlanFilter"></select>
+      </div>
+      <div class="tfp-table-wrap"><table class="tfp-table"><thead><tr>
+        <th>Lead ID</th><th>Name</th><th>Contact</th><th>Category</th><th>Plan</th><th>Duration</th><th>Status</th><th>Submitted</th>
+      </tr></thead><tbody id="tfpLeadRows"></tbody></table></div>
+    </div>
+    <div id="tfpPaneLogs" style="display:none">
+      <div class="tfp-table-wrap"><table class="tfp-table"><thead><tr>
+        <th>Time</th><th>Lead ID</th><th>Name</th><th>Email Type</th><th>Status</th><th>Error</th>
+      </tr></thead><tbody id="tfpLogRows"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<div class="tfp-detail-bg" id="tfpDetailBg"><div class="tfp-detail" id="tfpDetail"></div></div>
+
+<script>
+  const SALES_PAGE_URL =
+    `${window.location.origin}${window.location.pathname}#sales-force`;
+
+  // PAGE NAVIGATION
+
+  function switchView(view, updateHistory = true) {
+    document.querySelectorAll('.view-container').forEach(section => {
+      section.classList.remove('active');
+    });
+
+    const target = document.getElementById(`view-${view}`);
+
+    if (target) {
+      target.classList.add('active');
+      target.classList.remove('page-enter');
+
+      // Restart page entrance animation
+      void target.offsetWidth;
+      target.classList.add('page-enter');
+    }
+
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+      menu.classList.remove('open');
+    });
+
+    closeMobileMenu();
+
+    if (updateHistory) {
+      const hash = view === 'page2' ? '#page2' :
+                   view === 'page3' ? '#sales-force' : '';
+      history.replaceState(null, '', window.location.pathname + hash);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(setupReveal, 100);
+  }
+
+  function navigateToSection(view, sectionId) {
+    switchView(view, false);
+
+    const hash = view === 'page3' ? '#sales-force' :
+                 view === 'page2' ? '#page2' : '';
+
+    history.replaceState(null, '', window.location.pathname + hash);
+
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      closeMobileMenu();
+    }, 180);
+  }
+
+  // DROPDOWN NAVIGATION
+
+  function toggleDropdown(id) {
+    const menu = document.getElementById(id);
+    const willOpen = !menu.classList.contains('open');
+
+    document.querySelectorAll('.dropdown-menu').forEach(item => {
+      item.classList.remove('open');
+    });
+
+    if (willOpen) menu.classList.add('open');
+  }
+
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('open');
+      });
+    }
+  });
+
+  // MOBILE MENU
+
+  function toggleMobileMenu() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    document.getElementById('mobileNav').classList.remove('open');
+  }
+
+  // MEMBERSHIP PLAN SELECTION
+
+  function choosePlan(plan) {
+    switchView('page1', false);
+
+    setTimeout(() => {
+      const planSelect = document.getElementById('plan');
+      if (planSelect) planSelect.value = plan;
+
+      const form = document.getElementById('enquiry-form');
+      if (form) form.scrollIntoView({ behavior: 'smooth' });
+    }, 180);
+  }
+
+  // SCROLL REVEAL ANIMATIONS
+
+  let revealObserver;
+
+  function setupReveal() {
+    if (revealObserver) revealObserver.disconnect();
+
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.view-container.active .reveal:not(.visible)')
+      .forEach(element => revealObserver.observe(element));
+  }
+
+  // FAQ ACCORDION
+
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const currentItem = button.closest('.faq-item');
+      const wasOpen = currentItem.classList.contains('open');
+
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('open');
+      });
+
+      if (!wasOpen) currentItem.classList.add('open');
+    });
+  });
+
+  // BROCHURE DOWNLOAD
+
+  function downloadBrochure() {
+    const brochureContent = `
+TALENT FORGE
+Alpha Auron Private Limited
+
+MEMBERSHIP PLANS
+
+Starter       - Rs. 12,000
+Professional  - Rs. 24,000
+Specialist    - Rs. 42,000
+Elite         - Rs. 70,000
+Auron         - Rs. 1,10,000
+
+MEMBERSHIP DURATION
+6 to 12 Months
+
+ILLUSTRATIVE PROJECT VALUE
+
+Starter:
+Monthly: Rs. 3,500 - Rs. 5,000
+12 Months: Rs. 42,000 - Rs. 60,000
+
+Professional:
+Monthly: Rs. 7,000 - Rs. 10,000
+12 Months: Rs. 84,000 - Rs. 1,20,000
+
+Specialist:
+Monthly: Rs. 12,500 - Rs. 17,000
+12 Months: Rs. 1,50,000 - Rs. 2,04,000
+
+Elite:
+Monthly: Rs. 20,500 - Rs. 28,000
+12 Months: Rs. 2,46,000 - Rs. 3,36,000
+
+Auron:
+Monthly: Rs. 32,500 - Rs. 42,500
+12 Months: Rs. 3,90,000 - Rs. 5,10,000
+
+CONTACT
+Yasaswini
+yasaswini@alphaauron.com
++91 9494720904
+
+IMPORTANT:
+Project values are illustrative and not guaranteed income.
+Project availability, allocation, compensation and payment terms
+are subject to official programme conditions and written confirmation.
+Please contact an authorised company representative before enrolment.
+    `.trim();
+
+    const blob = new Blob([brochureContent], {
+      type: 'text/plain;charset=utf-8'
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = 'Talent-Forge-Membership-Brochure.txt';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+  }
+
+  // FORM SUBMISSION
+
+  const leadForm = document.getElementById('leadForm');
+
+  leadForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    const statusBox = document.getElementById('formStatus');
+
+    statusBox.className = 'form-status';
+    statusBox.style.display = 'none';
+
+    const formData = new FormData(leadForm);
+
+    // Honeypot anti-spam field
+    if (formData.get('website')) return;
+
+    const payload = {
+      fullName: formData.get('fullName'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      category: formData.get('category'),
+      skills: formData.get('skills'),
+      experience: formData.get('experience'),
+      currentStatus: formData.get('currentStatus'),
+      duration: formData.get('duration'),
+      plan: formData.get('plan'),
+      message: formData.get('message'),
+      privacyConsent: document.getElementById('privacyConsent').checked,
+      website: formData.get('website'),
+
+      salesPageUrl: SALES_PAGE_URL,
+      source: 'Talent Forge Website',
+      associate: 'Yasaswini',
+      associateEmail: 'yasaswini@alphaauron.com',
+      submittedAt: new Date().toISOString()
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+    try {
+      const response = await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      let result = {};
+
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        result = {};
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          result.message ||
+          result.error ||
+          'Unable to submit your enquiry. Please try again.'
+        );
+      }
+
+      leadForm.reset();
+      showEnquirySuccess(result.leadId);
+
+    } catch (error) {
+      console.error('Lead submission error:', error);
+
+      statusBox.className = 'form-status error';
+      statusBox.textContent =
+        error.message ||
+        'Something went wrong. Please try again or contact Yasaswini directly.';
+      statusBox.style.display = 'block';
+
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML =
+        'Submit Enquiry <i class="fa-solid fa-paper-plane"></i>';
+    }
+  });
+
+  // INITIAL PAGE LOAD
+
+  document.getElementById('currentYear').textContent =
+    new Date().getFullYear();
+
+  window.addEventListener('load', () => {
+    const hash = window.location.hash;
+
+    if (hash === '#page2') {
+      switchView('page2', false);
+    } else if (hash === '#sales-force') {
+      switchView('page3', false);
+    } else {
+      switchView('page1', false);
+    }
+
+    setupReveal();
+  });
+</script>
+
+<script>
+/* ===== Submit Enquiry success animation ===== */
+(function () {
+  const overlay = document.getElementById('tfsOverlay');
+  const badge = document.getElementById('tfsBadge');
+  const colors = ['#22c55e', '#86efac', '#facc15', '#ef2929', '#ffffff', '#60a5fa'];
+
+  window.showEnquirySuccess = function (leadId) {
+    badge.querySelectorAll('.tfs-dot').forEach(d => d.remove());
+    for (let i = 0; i < 14; i++) {
+      const dot = document.createElement('span');
+      const angle = (Math.PI * 2 * i) / 14;
+      const dist = 62 + (i % 3) * 14;
+      dot.className = 'tfs-dot';
+      dot.style.background = colors[i % colors.length];
+      dot.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      dot.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      badge.appendChild(dot);
+    }
+    const ref = document.getElementById('tfsRef');
+    if (leadId) { ref.textContent = 'Reference ID: ' + leadId; ref.style.display = 'table'; }
+    else ref.style.display = 'none';
+    overlay.classList.remove('open');
+    void overlay.offsetWidth;
+    overlay.classList.add('open');
+    document.getElementById('tfsClose').focus();
+  };
+  const close = () => overlay.classList.remove('open');
+  document.getElementById('tfsClose').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
+/* ===== Yasaswini / Admin login + dashboards ===== */
+(function () {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
+    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const STATUSES = ['New Enquiry', 'Contacted', 'Follow-up', 'Enrolled', 'Not Interested'];
+  const TITLES = { yasaswini: 'Yasaswini Dashboard', admin: 'Admin Dashboard' };
+  let role = null, leads = [], logs = [];
+
+  const fmt = iso => { const d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }); };
+  const tokenKey = r => 'tf_token_' + r;
+  const getToken = () => { try { return sessionStorage.getItem(tokenKey(role)); } catch (e) { return null; } };
+  const setToken = t => { try { t ? sessionStorage.setItem(tokenKey(role), t) : sessionStorage.removeItem(tokenKey(role)); } catch (e) {} };
+
+  async function api(path, opts = {}) {
+    const res = await fetch(path, Object.assign({}, opts, {
+      headers: Object.assign({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + (getToken() || '') }, opts.headers || {})
+    }));
+    let data = {}; try { data = await res.json(); } catch (e) {}
+    if (res.status === 401 || res.status === 403) { setToken(null); showLogin(data.message || 'Session expired. Please sign in again.'); throw new Error('auth'); }
+    if (!res.ok) throw new Error(data.message || 'Request failed.');
+    return data;
+  }
+
+  function openPortal(r) {
+    role = r;
+    $('tfpOverlay').classList.add('open');
+    document.body.classList.add('tfp-lock');
+    $('tfpOverlay').scrollTop = 0;
+    getToken() ? loadDashboard() : showLogin();
+  }
+  function closePortal() {
+    $('tfpOverlay').classList.remove('open');
+    $('tfpDetailBg').classList.remove('open');
+    document.body.classList.remove('tfp-lock');
+  }
+  function leave() {
+    closePortal();
+    history.replaceState(null, '', window.location.pathname);
+    if (typeof switchView === 'function') switchView('page1', false);
+  }
+  function route() {
+    const h = window.location.hash.toLowerCase();
+    if (h === '#yasaswini' || h === '#admin') openPortal(h.slice(1)); else closePortal();
+  }
+
+  function showLogin(msg) {
+    $('tfpDash').style.display = 'none';
+    $('tfpLogin').style.display = 'flex';
+    $('tfpLoginTitle').textContent = (role === 'admin' ? 'Admin' : 'Yasaswini') + ' Login';
+    $('tfpSwitch').textContent = role === 'admin' ? 'Go to Yasaswini Login →' : 'Go to Admin Login →';
+    $('tfpUser').value = '';
+    $('tfpPass').value = '';
+    const err = $('tfpLoginError');
+    err.style.display = msg ? 'block' : 'none'; err.textContent = msg || '';
+    setTimeout(() => { $('tfpUser').value = ''; $('tfpPass').value = ''; $('tfpUser').focus(); }, 60);
+  }
+
+  $('tfpLoginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('tfpLoginBtn'), err = $('tfpLoginError');
+    err.style.display = 'none'; btn.disabled = true; btn.textContent = 'Signing in…';
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role, username: $('tfpUser').value.trim(), password: $('tfpPass').value })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || 'Login failed.');
+      setToken(data.token); $('tfpPass').value = '';
+      await loadDashboard();
+    } catch (ex) { if (ex.message !== 'auth') { err.textContent = ex.message; err.style.display = 'block'; } }
+    finally { btn.disabled = false; btn.textContent = 'Sign In'; }
+  });
+
+  async function loadDashboard() {
+    try {
+      const data = await api('/api/dashboard/leads');
+      leads = data.leads || [];
+      if (role === 'admin') { logs = (await api('/api/dashboard/email-logs')).logs || []; }
+      $('tfpLogin').style.display = 'none';
+      $('tfpDash').style.display = 'block';
+      $('tfpDashTitle').firstChild.nodeValue = TITLES[role];
+      $('tfpDashSub').textContent = 'Signed in as ' + (data.name || role) + ' · ' + leads.length + ' enquiries';
+      $('tfpExport').style.display = role === 'admin' ? '' : 'none';
+      $('tfpLogsTab').style.display = role === 'admin' ? '' : 'none';
+      setupFilters(); renderStats(); renderLeads(); renderLogs(); switchTab('leads');
+    } catch (ex) { if (ex.message !== 'auth') { showLogin(ex.message); } }
+  }
+
+  function setupFilters() {
+    const plans = [...new Set(leads.map(l => l.plan).filter(Boolean))].sort();
+    $('tfpStatusFilter').innerHTML = '<option value="">All statuses</option>' + STATUSES.map(s => '<option>' + esc(s) + '</option>').join('');
+    $('tfpPlanFilter').innerHTML = '<option value="">All plans</option>' + plans.map(p => '<option>' + esc(p) + '</option>').join('');
+  }
+
+  function count(arr, key) { const m = {}; arr.forEach(x => { const k = x[key] || 'Not specified'; m[k] = (m[k] || 0) + 1; }); return Object.entries(m).sort((a, b) => b[1] - a[1]); }
+
+  function renderStats() {
+    const now = Date.now(), day = 864e5;
+    const today = leads.filter(l => new Date(l.submitted_at).toDateString() === new Date().toDateString()).length;
+    const week = leads.filter(l => now - new Date(l.submitted_at) < 7 * day).length;
+    const newC = leads.filter(l => l.lead_status === 'New Enquiry').length;
+    const enr = leads.filter(l => l.lead_status === 'Enrolled').length;
+    const cards = [['Total Enquiries', leads.length], ['Today', today], ['Last 7 Days', week], ['New / Uncontacted', newC], ['Enrolled', enr]];
+    if (role === 'admin') cards.push(['Failed Emails', logs.filter(l => l.status === 'failed').length]);
+    $('tfpStats').innerHTML = cards.map(c => '<div class="tfp-stat"><b>' + esc(c[1]) + '</b><span>' + esc(c[0]) + '</span></div>').join('');
+    const br = $('tfpBreak');
+    if (role === 'admin') {
+      const box = (t, rows) => '<div class="tfp-stat"><span>' + esc(t) + '</span>' + (rows.slice(0, 6).map(r => '<div><span>' + esc(r[0]) + '</span><b style="font-size:13px">' + r[1] + '</b></div>').join('') || '<div>—</div>') + '</div>';
+      br.innerHTML = box('By Membership Plan', count(leads, 'plan')) + box('By Category', count(leads, 'category')) + box('By Status', count(leads, 'lead_status'));
+      br.style.display = '';
+    } else br.style.display = 'none';
+  }
+
+  function statusPill(s) { return '<span class="tfp-pill ' + (s === 'New Enquiry' ? 'new' : s === 'Enrolled' ? 'ok' : s === 'Not Interested' ? 'bad' : '') + '">' + esc(s || '—') + '</span>'; }
+
+  function renderLeads() {
+    const q = $('tfpSearch').value.trim().toLowerCase(), st = $('tfpStatusFilter').value, pl = $('tfpPlanFilter').value;
+    const rows = leads.filter(l =>
+      (!st || l.lead_status === st) && (!pl || l.plan === pl) &&
+      (!q || [l.lead_id, l.full_name, l.email, l.phone, l.skills, l.category].join(' ').toLowerCase().includes(q)));
+    $('tfpLeadRows').innerHTML = rows.length ? rows.map(l =>
+      '<tr class="click" data-id="' + esc(l.lead_id) + '"><td>' + esc(l.lead_id) + '</td><td><b>' + esc(l.full_name) + '</b></td><td>' + esc(l.email) + '<br>' + esc(l.phone) +
+      '</td><td>' + esc(l.category) + '</td><td>' + esc(l.plan || '—') + '</td><td>' + esc(l.duration || '—') + '</td><td>' + statusPill(l.lead_status) + '</td><td>' + esc(fmt(l.submitted_at)) + '</td></tr>'
+    ).join('') : '<tr><td colspan="8" class="tfp-empty">No enquiries found.</td></tr>';
+  }
+
+  function renderLogs() {
+    $('tfpLogRows').innerHTML = logs.length ? logs.map(l =>
+      '<tr><td>' + esc(fmt(l.created_at)) + '</td><td>' + esc(l.lead_id) + '</td><td>' + esc(l.full_name || '—') + '</td><td>' + esc((l.email_type || '').replace(/_/g, ' ')) +
+      '</td><td><span class="tfp-pill ' + (l.status === 'sent' ? 'ok' : 'bad') + '">' + esc(l.status) + '</span></td><td>' + esc(l.error || '') + '</td></tr>'
+    ).join('') : '<tr><td colspan="6" class="tfp-empty">No email activity yet.</td></tr>';
+  }
+
+  function switchTab(t) {
+    document.querySelectorAll('.tfp-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+    $('tfpPaneLeads').style.display = t === 'leads' ? '' : 'none';
+    $('tfpPaneLogs').style.display = t === 'logs' ? '' : 'none';
+  }
+
+  function openDetail(id) {
+    const l = leads.find(x => x.lead_id === id); if (!l) return;
+    const f = [['Lead ID', l.lead_id], ['Full Name', l.full_name], ['Email', l.email, 'mailto:' + l.email], ['Mobile', l.phone, 'tel:' + String(l.phone).replace(/[^+0-9]/g, '')],
+      ['Category', l.category], ['Skills', l.skills], ['Experience', l.experience], ['Current Status', l.current_status], ['Preferred Duration', l.duration || 'Not specified'],
+      ['Membership Plan', l.plan || 'Not specified'], ['Additional Message', l.message || 'None'], ['Assigned To', (l.assigned_employee || '') + (l.employee_designation ? ' — ' + l.employee_designation : '')],
+      ['Lead Source', l.lead_source], ['Campaign Source', l.campaign_source], ['Submitted', fmt(l.submitted_at)]];
+    $('tfpDetail').innerHTML = '<h3>Enquiry Details</h3><dl class="tfp-dl">' +
+      f.map(r => '<dt>' + esc(r[0]) + '</dt><dd>' + (r[2] ? '<a href="' + esc(r[2]) + '">' + esc(r[1]) + '</a>' : esc(r[1] || '—')) + '</dd>').join('') +
+      '</dl><div class="tfp-field"><label>Update Status</label><select id="tfpDetailStatus">' +
+      STATUSES.map(s => '<option' + (s === l.lead_status ? ' selected' : '') + '>' + esc(s) + '</option>').join('') +
+      '</select></div><div class="tfp-actions"><button class="tfp-btn primary" id="tfpSaveStatus">Save Status</button><button class="tfp-btn" id="tfpCloseDetail">Close</button></div>';
+    $('tfpDetailBg').classList.add('open');
+    $('tfpCloseDetail').onclick = () => $('tfpDetailBg').classList.remove('open');
+    $('tfpSaveStatus').onclick = async () => {
+      const status = $('tfpDetailStatus').value, btn = $('tfpSaveStatus');
+      btn.disabled = true; btn.textContent = 'Saving…';
+      try {
+        await api('/api/dashboard/leads/' + encodeURIComponent(id) + '/status', { method: 'PATCH', body: JSON.stringify({ status }) });
+        l.lead_status = status; renderStats(); renderLeads(); $('tfpDetailBg').classList.remove('open');
+      } catch (ex) { if (ex.message !== 'auth') { alert(ex.message); } btn.disabled = false; btn.textContent = 'Save Status'; }
+    };
+  }
+
+  function exportCsv() {
+    const cols = ['lead_id', 'full_name', 'email', 'phone', 'category', 'skills', 'experience', 'current_status', 'duration', 'plan', 'message', 'assigned_employee', 'lead_source', 'campaign_source', 'lead_status', 'submitted_at'];
+    const cell = v => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
+    const csv = [cols.join(',')].concat(leads.map(l => cols.map(c => cell(l[c])).join(','))).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'talent-forge-enquiries.csv'; document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  $('tfpSearch').addEventListener('input', renderLeads);
+  $('tfpStatusFilter').addEventListener('change', renderLeads);
+  $('tfpPlanFilter').addEventListener('change', renderLeads);
+  $('tfpLeadRows').addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (tr) openDetail(tr.dataset.id); });
+  $('tfpTabs').addEventListener('click', e => { const b = e.target.closest('.tfp-tab'); if (b) switchTab(b.dataset.tab); });
+  $('tfpRefresh').addEventListener('click', loadDashboard);
+  $('tfpSwitch').addEventListener('click', () => { window.location.hash = role === 'admin' ? '#yasaswini' : '#admin'; });
+  $('tfpExport').addEventListener('click', exportCsv);
+  $('tfpLogout').addEventListener('click', () => { setToken(null); leads = []; logs = []; showLogin(); });
+  document.querySelectorAll('[data-tfp-back]').forEach(b => b.addEventListener('click', leave));
+  $('tfpDetailBg').addEventListener('click', e => { if (e.target === $('tfpDetailBg')) $('tfpDetailBg').classList.remove('open'); });
+
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+</body>
+</html>

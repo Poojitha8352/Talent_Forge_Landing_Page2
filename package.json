@@ -1,0 +1,21 @@
+{
+  "name": "talent-forge-membership-funnel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Talent Forge membership lead generation funnel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.7": true
+  }
+}
